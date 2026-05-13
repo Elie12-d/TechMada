@@ -44,7 +44,7 @@
           <option value="">-- Sélectionner --</option>
           <?php foreach($departements ?? [] as $dept): ?>
             <option value="<?= $dept['id'] ?>" <?= old('departement_id') == $dept['id'] ? 'selected' : '' ?>>
-              <?= $dept['libelle'] ?>
+              <?= $dept['nom'] ?>
             </option>
           <?php endforeach; ?>
         </select>
@@ -90,7 +90,7 @@
       <select class="f-select" style="font-size:.8rem;padding:6px 10px;width:auto" id="filterDept">
         <option value="">Tous les depts</option>
         <?php foreach($departements ?? [] as $dept): ?>
-          <option value="<?= $dept['id'] ?>"><?= $dept['libelle'] ?></option>
+          <option value="<?= $dept['id'] ?>"><?= $dept['nom'] ?></option>
         <?php endforeach; ?>
       </select>
     </div>

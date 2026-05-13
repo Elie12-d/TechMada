@@ -10,7 +10,11 @@ class DashboardController extends BaseController
 {
     public function index()
     {
-        
+        // Redirect admin to admin dashboard
+        if (session()->get('role') === 'admin') {
+            return redirect()->to('/admin/dashboard');
+        }
+
         $conge = new CongeModel();
         $idEmployer = session()->get('id');
         $data['conges'] = $conge->getCongesByEmploye($idEmployer);
