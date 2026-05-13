@@ -10,7 +10,7 @@ use App\Controllers;
 // Public routes
 $routes->get('/', 'Home::toFormLogin');
 $routes->post('/login', 'AuthController::login');
-
+$routes->get('/logout', 'AuthController::logout');
 
 // Protected routes (require authentication)
 $routes->group('', ['filter' => 'auth'], function($routes) {

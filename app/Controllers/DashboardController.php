@@ -24,7 +24,7 @@ class DashboardController extends BaseController
         $data['congesApprouvees'] = $conge->getNbCongeParStatus($idEmployer, 'approuvee');
         $data['congesRefusees'] = $conge->getNbCongeParStatus($idEmployer, 'refusee');
 
-        return view('employe/dashboard', $data);
+        return $this->renderPage('employe/dashboard', $data, 'dashboard');
         
     }
 }

@@ -29,7 +29,7 @@ class Database extends Config
         'hostname'     => '',
         'username'     => '',
         'password'     => '',
-        'database'     => '/home/elie/S4/Mr Rojo/techMada',
+        'database'     => '/home/elie/S4/Mr Rojo/techMada.db',
         'DBDriver'     => 'SQLite3',
         'DBPrefix'     => '',
         'pConnect'     => false,

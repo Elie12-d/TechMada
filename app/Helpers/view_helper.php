@@ -1,9 +1,55 @@
 <?php
 
 if (!function_exists('prepareSidebar')) {
-    function prepareSidebar($userRole = 'employe', $user = null, $activeMenu = '')
+    function prepareSidebar($userRole = null, $user = null, $activeMenu = '')
     {
         $sidebarData = [];
+        $userRole = strtolower($userRole ?? session()->get('role') ?? 'employe');
+        if ($userRole === 'responsable') {
+            $userRole = 'rh';
+        }
+
+        if (empty($activeMenu)) {
+            $currentPath = trim(service('uri')->getPath(), '/');
+            switch ($currentPath) {
+                case 'dashboard':
+                case 'employe/dashboard':
+                case 'rh/dashboard':
+                case 'admin/dashboard':
+                    $activeMenu = 'dashboard';
+                    break;
+                case 'conges/create':
+                case 'employe/demandes/create':
+                    $activeMenu = 'create';
+                    break;
+                case 'conges':
+                case 'employe/demandes':
+                case 'rh/demandes':
+                case 'admin/demandes':
+                    $activeMenu = 'demandes';
+                    break;
+                case 'profil':
+                case 'employe/profil':
+                    $activeMenu = 'profil';
+                    break;
+                case 'rh/historique':
+                    $activeMenu = 'historique';
+                    break;
+                case 'rh/soldes':
+                case 'admin/soldes':
+                    $activeMenu = 'soldes';
+                    break;
+                case 'admin/employes':
+                    $activeMenu = 'employes';
+                    break;
+                case 'admin/departements':
+                    $activeMenu = 'departements';
+                    break;
+                case 'admin/types-conge':
+                    $activeMenu = 'types';
+                    break;
+            }
+        }
         
         if ($userRole === 'employe') {
             $sidebarData = [
@@ -11,26 +57,26 @@ if (!function_exists('prepareSidebar')) {
                 'sidebarSubtitle' => 'Espace employé',
                 'menuItems' => [
                     [
-                        'url' => base_url('employe/dashboard'),
+                        'url' => base_url('/dashboard'),
                         'icon' => 'bi bi-grid-1x2',
                         'label' => 'Tableau de bord',
                         'active' => $activeMenu === 'dashboard'
                     ],
                     [
-                        'url' => base_url('employe/demandes/create'),
+                        'url' => base_url('/conges/create'),
                         'icon' => 'bi bi-plus-circle',
                         'label' => 'Nouvelle demande',
                         'active' => $activeMenu === 'create'
                     ],
                     [
-                        'url' => base_url('employe/demandes'),
+                        'url' => base_url('/conges'),
                         'icon' => 'bi bi-calendar3',
                         'label' => 'Mes demandes',
                         'badge' => ['text' => '2', 'class' => 'alert'],
                         'active' => $activeMenu === 'demandes'
                     ],
                     [
-                        'url' => base_url('employe/profil'),
+                        'url' => base_url('/profil'),
                         'icon' => 'bi bi-person',
                         'label' => 'Mon profil',
                         'active' => $activeMenu === 'profil'

@@ -9,7 +9,7 @@
     <div class="form-section">
       <h3>Détails de la demande</h3>
 
-      <form action="<?= base_url('employe/demandes/store') ?>" method="post">
+      <form action="<?= base_url('/conges/store') ?>" method="post">
         <?= csrf_field() ?>
 
         <div class="f-group" style="margin-bottom:1rem">
@@ -59,7 +59,7 @@
 
         <div class="form-actions">
           <button type="submit" class="btn-forest"><i class="bi bi-send"></i> Soumettre la demande</button>
-          <a href="<?= base_url('employe/dashboard') ?>" class="btn-secondary"><i class="bi bi-x"></i> Annuler</a>
+          <a href="<?= base_url('/dashboard') ?>" class="btn-secondary"><i class="bi bi-x"></i> Annuler</a>
         </div>
       </form>
     </div>
@@ -79,7 +79,8 @@
               </span>
             </div>
             <div class="solde-bar">
-              <div class="solde-fill" style="width:<?= ($solde['restants'] / $solde['total']) * 100 ?>%"></div>
+              <?php $fillPercent = ($solde['total'] > 0) ? ($solde['restants'] / $solde['total']) * 100 : 0; ?>
+              <div class="solde-fill" style="width:<?= min(100, max(0, $fillPercent)) ?>%"></div>
             </div>
           </div>
         <?php endforeach; ?>

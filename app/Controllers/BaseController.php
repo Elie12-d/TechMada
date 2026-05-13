@@ -41,5 +41,20 @@ abstract class BaseController extends Controller
 
         // Preload any models, libraries, etc, here.
         // $this->session = service('session');
+        helper('view');
+    }
+
+    protected function renderPage(string $view, array $data = [], string $activeMenu = '')
+    {
+        $userRole = strtolower(session()->get('role') ?? 'employe');
+        $user = [
+            'prenom' => session()->get('prenom') ?? '',
+            'nom' => session()->get('nom') ?? '',
+            'role_libelle' => session()->get('role') ?? ucfirst($userRole),
+            'avatar_class' => 'av-green'
+        ];
+
+        $data['sidebarData'] = prepareSidebar($userRole, $user, $activeMenu);
+        return view($view, $data);
     }
 }

@@ -90,7 +90,7 @@
 <div class="data-card">
   <div class="data-card-head">
     <h3>Mes dernières demandes</h3>
-    <a href="<?= base_url('employer/demandes') ?>" style="font-size:.8rem;color:var(--forest);text-decoration:none">Voir tout →</a>
+    <a href="<?= base_url('/conges') ?>" style="font-size:.8rem;color:var(--forest);text-decoration:none">Voir tout →</a>
   </div>
   <table class="tbl">
     <thead>
