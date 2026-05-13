@@ -20,7 +20,7 @@ class DashboardController extends BaseController
         // $data['congeSansSolde'] = $conge->getCongesByEmployeAndType($idEmployer, 4);
         
         // Comptage des congés par statut
-        $data['congesEnAttente'] = $conge->getNbCongeParStatus($idEmployer, 'en attente');
+        $data['congesEnAttente'] = $conge->getNbCongeParStatus($idEmployer, 'en_attente');
         $data['congesApprouvees'] = $conge->getNbCongeParStatus($idEmployer, 'approuvee');
         $data['congesRefusees'] = $conge->getNbCongeParStatus($idEmployer, 'refusee');
 

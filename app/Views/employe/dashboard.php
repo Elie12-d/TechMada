@@ -43,30 +43,47 @@
 <div class="data-card">
   <div class="data-card-head"><h3>Mes soldes de congés — <?= date('Y') ?></h3></div>
   <div style="padding:1rem 1.25rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem">
+    <?php
+    // Configuration des types de congé
+    $congeTypes = [
+        [
+            'name' => 'Congé annuel',
+            'data' => $congeAnnuelle ?? [],
+            'total' => 30
+        ],
+        [
+            'name' => 'Congé maladie', 
+            'data' => $congeMaladie ?? [],
+            'total' => 10
+        ],
+        [
+            'name' => 'Congé spécial',
+            'data' => $congeSpeciale ?? [],
+            'total' => 5
+        ]
+    ];
+
+    foreach($congeTypes as $type):
+        // Calculer les jours pris (uniquement les congés approuvés)
+        $joursPris = 0;
+        foreach($type['data'] as $conge) {
+            if($conge->statut === 'approuvee') {
+                $joursPris += $conge->nb_jours;
+            }
+        }
+        $joursRestants = $type['total'] - $joursPris;
+        $pourcentage = $type['total'] > 0 ? ($joursPris / $type['total']) * 100 : 0;
+        $barClass = $pourcentage > 80 ? 'warn' : '';
+    ?>
     <div class="solde-card" style="margin:0">
       <div class="solde-header">
-        <span class="solde-type">Congé annuel</span>
-        <span class="solde-nums"><strong>18</strong> / 30 j</span>
+        <span class="solde-type"><?= $type['name'] ?></span>
+        <span class="solde-nums"><strong><?= $joursRestants ?></strong> / <?= $type['total'] ?> j</span>
       </div>
-      <div class="solde-bar"><div class="solde-fill" style="width:60%"></div></div>
-      <div class="solde-label">18 jours restants · 12 pris</div>
+      <div class="solde-bar"><div class="solde-fill <?= $barClass ?>" style="width:<?= $pourcentage ?>%"></div></div>
+      <div class="solde-label"><?= $joursRestants ?> jours restants · <?= $joursPris ?> pris</div>
     </div>
-    <div class="solde-card" style="margin:0">
-      <div class="solde-header">
-        <span class="solde-type">Congé maladie</span>
-        <span class="solde-nums"><strong>8</strong> / 10 j</span>
-      </div>
-      <div class="solde-bar"><div class="solde-fill" style="width:80%"></div></div>
-      <div class="solde-label">8 jours restants · 2 pris</div>
-    </div>
-    <div class="solde-card" style="margin:0">
-      <div class="solde-header">
-        <span class="solde-type">Congé spécial</span>
-        <span class="solde-nums"><strong>1</strong> / 5 j</span>
-      </div>
-      <div class="solde-bar"><div class="solde-fill warn" style="width:20%"></div></div>
-      <div class="solde-label">1 jour restant · 4 pris</div>
-    </div>
+    <?php endforeach; ?>
   </div>
 </div>
 
