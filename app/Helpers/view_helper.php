@@ -9,6 +9,12 @@ if (!function_exists('prepareSidebar')) {
             $userRole = 'rh';
         }
 
+        $roleSubtitles = [
+            'employe' => 'Espace employé',
+            'rh' => 'Espace RH',
+            'admin' => 'Administration',
+        ];
+
         if (empty($activeMenu)) {
             $currentPath = trim(service('uri')->getPath(), '/');
             switch ($currentPath) {
@@ -54,7 +60,7 @@ if (!function_exists('prepareSidebar')) {
         if ($userRole === 'employe') {
             $sidebarData = [
                 'sidebarIcon' => 'bi bi-briefcase',
-                'sidebarSubtitle' => 'Espace employé',
+                'sidebarSubtitle' => $roleSubtitles['employe'],
                 'menuItems' => [
                     [
                         'url' => base_url('/dashboard'),
@@ -86,7 +92,7 @@ if (!function_exists('prepareSidebar')) {
         } elseif ($userRole === 'rh') {
             $sidebarData = [
                 'sidebarIcon' => 'bi bi-person-check',
-                'sidebarSubtitle' => 'Espace responsable',
+                'sidebarSubtitle' => $roleSubtitles['rh'],
                 'menuItems' => [
                     [
                         'url' => base_url('rh/dashboard'),
@@ -118,7 +124,7 @@ if (!function_exists('prepareSidebar')) {
         } elseif ($userRole === 'admin') {
             $sidebarData = [
                 'sidebarIcon' => 'bi bi-shield-check',
-                'sidebarSubtitle' => 'Administration',
+                'sidebarSubtitle' => $roleSubtitles['admin'],
                 'menuItems' => [
                     [
                         'url' => base_url('admin/dashboard'),

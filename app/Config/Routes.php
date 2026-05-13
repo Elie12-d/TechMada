@@ -19,4 +19,9 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
     $routes->get('/conges/create', 'CongeController::create');
     $routes->post('/conges/store', 'CongeController::store');
     $routes->get('/employes', 'EmployerController::index');
+    
+    // RH routes
+    $routes->get('/rh/demandes', 'RhController::demandes');
+    $routes->post('/rh/demandes/(:num)/approuver', 'RhController::approuver/$1');
+    $routes->post('/rh/demandes/(:num)/refuser', 'RhController::refuser/$1');
 });
