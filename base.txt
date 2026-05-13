@@ -59,6 +59,7 @@ INSERT INTO departements (nom, description) VALUES
 ('Informatique', 'Developpement et infrastructure IT'),
 ('Commercial', 'Ventes et relation clients'),
 ('Comptabilite', 'Gestion financiere et comptable');
+
 session()->set([
     'id' => $user['id'],
     'nom' => $user['nom'],
