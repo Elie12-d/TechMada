@@ -19,13 +19,13 @@
 <div class="metrics">
   <div class="metric">
     <div class="metric-top"><div class="metric-icon mi-amber"><i class="bi bi-hourglass-split"></i></div></div>
-    <div class="metric-val"><?= $nbConges['en_attente'] ?? 0 ?></div>
+    <div class="metric-val"><?= $congesEnAttente['total_jours'] ?? 0 ?></div>
     <div class="metric-label">En attente</div>
   </div>
   <div class="metric">
     <div class="metric-top"><div class="metric-icon mi-green"><i class="bi bi-check-circle"></i></div></div>
-    <div class="metric-val"><?= $nbConges['approuvee'] ?? 0 ?></div>
-    <div class="metric-label">Approuvées</div>
+    <div class="metric-val"><?= $congesApprouvees['total_jours'] ?? 0 ?></div>
+    <div class="metric-label">Approuvée</div>
   </div>
   <div class="metric">
     <div class="metric-top"><div class="metric-icon mi-forest"><i class="bi bi-calendar-check"></i></div></div>
@@ -35,7 +35,7 @@
   </div>
   <div class="metric">
     <div class="metric-top"><div class="metric-icon mi-red"><i class="bi bi-x-circle"></i></div></div>
-    <div class="metric-val"><?= $nbConges['refusee'] ?? 0 ?></div>
+    <div class="metric-val"><?= $congesRefusees['total_jours'] ?? 0 ?></div>
     <div class="metric-label">Refusée</div>
   </div>
 </div>

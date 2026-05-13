@@ -39,12 +39,12 @@ class CongeModel extends Model
         return $builder->get()->getResult();
     }
 
-    public function getNbCongeParStatus($employeId)
+    public function getNbCongeParStatus($employeId,$statut)
     {
         return $this->select('statut')
-                    ->selectSum('nb_jours', 'total_jours')
+                    ->selectCount('nb_jours', 'total_jours')
                     ->where('employe_id', $employeId)
-                    ->groupBy('statut')
-                    ->findAll();
+                    ->where('statut', $statut)
+                    ->first();
     }
 }

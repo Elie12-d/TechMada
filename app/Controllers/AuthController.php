@@ -16,14 +16,17 @@ class AuthController extends BaseController
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
 
-        $employeModel = new EmployeModel();
+        $employeModel = new EmployerModel();
         $user = $employeModel->where('email', $email)->first();
 
         if (!$user) {
             return redirect()->back()->with('error', 'Email ou mot de passe incorrect');
         }
 
-        if (!password_verify($password, $user->password)) {
+        // if (!password_verify($password, $user->password)) {
+        //     return redirect()->back()->with('error', 'Email ou mot de passe incorrect');
+        // }
+        if ($password != $user['password']) {
             return redirect()->back()->with('error', 'Email ou mot de passe incorrect');
         }
 
