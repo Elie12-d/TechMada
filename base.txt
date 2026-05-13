@@ -52,3 +52,10 @@ CREATE TABLE IF NOT EXISTS conges (
     FOREIGN KEY (type_conge_id) REFERENCES types_conge(id) ON DELETE CASCADE,
     FOREIGN KEY (traite_par) REFERENCES employes(id) ON DELETE SET NULL
 );
+
+session()->set([
+    'id' => $user['id'],
+    'nom' => $user['nom'],
+    'role' => $user['role'],
+    'isLoggedIn' => true
+]);
