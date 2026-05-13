@@ -15,6 +15,20 @@ class DashboardController extends BaseController
             return redirect()->to('/admin/dashboard');
         }
 
+        $userRole = strtolower(session()->get('role') ?? 'employe');
+        if ($userRole === 'responsable') {
+            $userRole = 'rh';
+        }
+        
+        // Rediriger RH et admin vers leurs espaces respectifs
+        if ($userRole === 'rh') {
+            return redirect()->to('/rh/demandes');
+        }
+        if ($userRole === 'admin') {
+            return redirect()->to('/admin/dashboard');
+        }
+        
+        // Espace employé
         $conge = new CongeModel();
         $idEmployer = session()->get('id');
         $data['conges'] = $conge->getCongesByEmploye($idEmployer);

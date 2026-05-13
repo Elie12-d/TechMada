@@ -33,9 +33,22 @@ class AuthController extends BaseController
         session()->set([
             'id' => $user['id'],
             'nom' => $user['nom'],
+            'prenom' => $user['prenom'],
             'role' => $user['role'],
             'isLoggedIn' => true
         ]);
+        
+        $userRole = strtolower($user['role'] ?? 'employe');
+        if ($userRole === 'responsable') {
+            $userRole = 'rh';
+        }
+        
+        if ($userRole === 'rh') {
+            return redirect()->to('/rh/demandes');
+        } elseif ($userRole === 'admin') {
+            return redirect()->to('/admin/dashboard');
+        }
+        
         return redirect()->to('/dashboard');
     }
 
