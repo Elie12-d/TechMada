@@ -1,6 +1,7 @@
 <?php
 
 use CodeIgniter\Router\RouteCollection;
+use App\Controllers;
 
 $routes->get('/login', 'AuthController::login');
 
@@ -13,3 +14,9 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
     
 });
 // $routes->get();
+/**
+ * @var RouteCollection $routes
+ */
+$routes->get('/', 'Home::index');
+$routes->get('/login', 'Home::toFormLogin');
+$routes->post('/login', 'AuthController::login');
