@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS départements (
+CREATE TABLE IF NOT EXISTS departements (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nom TEXT NOT NULL,
     description TEXT
@@ -11,17 +11,17 @@ CREATE TABLE IF NOT EXISTS employes (
     email TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
     role TEXT DEFAULT 'employe',
-    département_id INTEGER,
-    date_embauche TEXT NOT NULL,  -- SQLite stocke les dates en TEXT
-    actif INTEGER DEFAULT 1,  -- 1 = vrai, 0 = faux (BOOLEAN simule)
-    FOREIGN KEY (département_id) REFERENCES départements(id) ON DELETE SET NULL
+    departement_id INTEGER,
+    date_embauche TEXT NOT NULL,
+    actif INTEGER DEFAULT 1,
+    FOREIGN KEY (departement_id) REFERENCES departements(id) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS types_conge (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     libelle TEXT NOT NULL,
-    jours_annuels REAL NOT NULL,  -- REAL pour les décimaux
-    deductible INTEGER DEFAULT 1  -- 1 = oui, 0 = non
+    jours_annuels REAL NOT NULL,
+    deductible INTEGER DEFAULT 1
 );
 
 CREATE TABLE IF NOT EXISTS soldes (
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS soldes (
     jours_pris REAL DEFAULT 0,
     FOREIGN KEY (employe_id) REFERENCES employes(id) ON DELETE CASCADE,
     FOREIGN KEY (type_conge_id) REFERENCES types_conge(id) ON DELETE CASCADE,
-    UNIQUE(employe_id, type_conge_id, annee)  -- Un seul solde par employé/type/année
+    UNIQUE(employe_id, type_conge_id, annee)
 );
 
 CREATE TABLE IF NOT EXISTS conges (
@@ -47,8 +47,15 @@ CREATE TABLE IF NOT EXISTS conges (
     statut TEXT DEFAULT 'en_attente' CHECK(statut IN ('en_attente', 'approuvee', 'refusee', 'annulee')),
     commentaire_rh TEXT,
     created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-    traite_par INTEGER,  -- FK = employes.id
+    traite_par INTEGER,
     FOREIGN KEY (employe_id) REFERENCES employes(id) ON DELETE CASCADE,
     FOREIGN KEY (type_conge_id) REFERENCES types_conge(id) ON DELETE CASCADE,
     FOREIGN KEY (traite_par) REFERENCES employes(id) ON DELETE SET NULL
 );
+
+INSERT INTO departements (nom, description) VALUES
+('Direction', 'Direction generale et administration'),
+('Ressources Humaines', 'Gestion du personnel et des carrieres'),
+('Informatique', 'Developpement et infrastructure IT'),
+('Commercial', 'Ventes et relation clients'),
+('Comptabilite', 'Gestion financiere et comptable');
